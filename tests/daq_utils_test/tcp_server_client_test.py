@@ -75,7 +75,7 @@ class TestSocket:
         test_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         test_Socket = Socket(test_socket)
         test_Socket.bind(('', 5544))
-        test_Socket.listen
+        test_Socket.listen()
         assert test_Socket.getsockname() == ('0.0.0.0', 5544)
         assert test_Socket.accept
         assert test_Socket.connect
@@ -160,6 +160,7 @@ class TestSocket:
         assert b'test' in test_Socket.socket._send
         assert test_Socket.recv() == b'\x00\x00\x00\x04'
         assert test_Socket.recv() == b'test'
+        assert not test_Socket.socket._send
 
     def test_get_string(self):
         test_Socket = Socket(MockPythonSocket())

@@ -52,19 +52,25 @@ class TestViewer0D:
         prog = init_prog
 
         assert prog.ui.Nhistory_sb.value() == 200
+        assert prog.Nsamples == 200
         prog.ui.Nhistory_sb.clear()
         qtbot.keyClicks(prog.ui.Nhistory_sb, '300')
         assert prog.ui.Nhistory_sb.value() == 300
+        assert prog.Nsamples == 300
 
     def test_show_datalist_pb(self, qtbot, init_prog):
         prog = init_prog
 
         prog.parent.show()
 
+        prog.ui.show_datalist_pb.setChecked(False)
+        assert not prog.ui.show_datalist_pb.isChecked()
         qtbot.mouseClick(prog.ui.show_datalist_pb, QtCore.Qt.LeftButton)
         assert prog.ui.values_list.isVisible()
+        assert prog.ui.show_datalist_pb.isChecked()
         qtbot.mouseClick(prog.ui.show_datalist_pb, QtCore.Qt.LeftButton)
         assert not prog.ui.values_list.isVisible()
+        assert not prog.ui.show_datalist_pb.isChecked()
         
     def test_clear_data(self, init_prog):
         prog = init_prog
